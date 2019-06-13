@@ -15,11 +15,14 @@ pipeline {
 	stage('Build') {
 	    steps{
 		echo 'Build'
+		./gradlew clean test jar
 	    }
 	}
 	stage('Results') {
 	   steps{
 		echo 'Results'
+		junit **/build/test-results/test/TEST-*.xml
+		archiveArtifacts artifacts: 'build/libs'
 	   }
 	}
     }
